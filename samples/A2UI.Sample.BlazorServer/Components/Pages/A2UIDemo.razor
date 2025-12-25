@@ -76,6 +76,21 @@
             <button class="quick-btn" @onclick='() => SendQuery("显示卡片")'>
                 📇 显示卡片
             </button>
+            <button class="quick-btn" @onclick='() => SendQuery("显示表单")'>
+                📝 显示表单
+            </button>
+            <button class="quick-btn" @onclick='() => SendQuery("显示产品")'>
+                🛍️ 显示产品
+            </button>
+            <button class="quick-btn" @onclick='() => SendQuery("显示仪表盘")'>
+                📊 显示仪表盘
+            </button>
+            <button class="quick-btn" @onclick='() => SendQuery("显示通知")'>
+                🔔 显示通知
+            </button>
+            <button class="quick-btn" @onclick='() => SendQuery("显示用户资料")'>
+                👤 显示用户资料
+            </button>
         </div>
         
         <div class="input-row">
@@ -353,16 +368,18 @@
         gap: 8px;
         margin-bottom: 12px;
         flex-wrap: wrap;
+        justify-content: center;
     }
 
     .quick-btn {
-        padding: 8px 16px;
+        padding: 6px 12px;
         border: 1px solid #e0e0e0;
         background: white;
         border-radius: 20px;
         cursor: pointer;
-        font-size: 13px;
+        font-size: 12px;
         transition: all 0.2s;
+        white-space: nowrap;
     }
 
     .quick-btn:hover:not(:disabled) {
