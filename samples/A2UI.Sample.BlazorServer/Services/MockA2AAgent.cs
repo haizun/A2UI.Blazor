@@ -794,11 +794,16 @@ public class MockA2AAgent
                             Id = "name-input",
                             Component = new Dictionary<string, object>
                             {
-                                ["TextInput"] = new Dictionary<string, object>
+                                ["TextField"] = new Dictionary<string, object>
                                 {
-                                    ["label"] = "姓名",
-                                    ["placeholder"] = "请输入您的姓名",
-                                    ["dataBinding"] = "/formData/name"
+                                    ["label"] = new Dictionary<string, object>
+                                    {
+                                        ["literalString"] = "姓名"
+                                    },
+                                    ["text"] = new Dictionary<string, object>
+                                    {
+                                        ["path"] = "formData/name"
+                                    }
                                 }
                             }
                         },
@@ -807,11 +812,17 @@ public class MockA2AAgent
                             Id = "email-input",
                             Component = new Dictionary<string, object>
                             {
-                                ["TextInput"] = new Dictionary<string, object>
+                                ["TextField"] = new Dictionary<string, object>
                                 {
-                                    ["label"] = "邮箱",
-                                    ["placeholder"] = "请输入您的邮箱地址",
-                                    ["dataBinding"] = "/formData/email"
+                                    ["label"] = new Dictionary<string, object>
+                                    {
+                                        ["literalString"] = "邮箱"
+                                    },
+                                    ["text"] = new Dictionary<string, object>
+                                    {
+                                        ["path"] = "formData/email"
+                                    },
+                                    ["validationRegexp"] = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
                                 }
                             }
                         },
@@ -820,12 +831,17 @@ public class MockA2AAgent
                             Id = "message-input",
                             Component = new Dictionary<string, object>
                             {
-                                ["TextInput"] = new Dictionary<string, object>
+                                ["TextField"] = new Dictionary<string, object>
                                 {
-                                    ["label"] = "留言",
-                                    ["placeholder"] = "请输入您的留言",
-                                    ["multiline"] = true,
-                                    ["dataBinding"] = "/formData/message"
+                                    ["label"] = new Dictionary<string, object>
+                                    {
+                                        ["literalString"] = "留言"
+                                    },
+                                    ["text"] = new Dictionary<string, object>
+                                    {
+                                        ["path"] = "formData/message"
+                                    },
+                                    ["usageHint"] = "longText"
                                 }
                             }
                         },
