@@ -1,0 +1,92 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        {
+          "id": "root",
+          "component": { "Column": { "children": { "explicitList": ["dashboard-title", "stats-row"] } } }
+        },
+        {
+          "id": "dashboard-title",
+          "component": { "Text": { "text": { "literalString": "📊 数据统计" }, "usageHint": "h1" } }
+        },
+        {
+          "id": "stats-row",
+          "component": { "Row": { "children": { "explicitList": ["stat-card1", "stat-card2", "stat-card3"] } } }
+        },
+        {
+          "id": "stat-card1",
+          "component": { "Card": { "child": "stat-content1" } }
+        },
+        {
+          "id": "stat-content1",
+          "component": { "Column": { "children": { "explicitList": ["stat1-label", "stat1-value"] } } }
+        },
+        {
+          "id": "stat1-label",
+          "component": { "Text": { "text": { "literalString": "总用户数" } } }
+        },
+        {
+          "id": "stat1-value",
+          "component": { "Text": { "text": { "path": "stats/totalUsers" }, "usageHint": "h2" } }
+        },
+        {
+          "id": "stat-card2",
+          "component": { "Card": { "child": "stat-content2" } }
+        },
+        {
+          "id": "stat-content2",
+          "component": { "Column": { "children": { "explicitList": ["stat2-label", "stat2-value"] } } }
+        },
+        {
+          "id": "stat2-label",
+          "component": { "Text": { "text": { "literalString": "活跃用户" } } }
+        },
+        {
+          "id": "stat2-value",
+          "component": { "Text": { "text": { "path": "stats/activeUsers" }, "usageHint": "h2" } }
+        },
+        {
+          "id": "stat-card3",
+          "component": { "Card": { "child": "stat-content3" } }
+        },
+        {
+          "id": "stat-content3",
+          "component": { "Column": { "children": { "explicitList": ["stat3-label", "stat3-value"] } } }
+        },
+        {
+          "id": "stat3-label",
+          "component": { "Text": { "text": { "literalString": "今日访问" } } }
+        },
+        {
+          "id": "stat3-value",
+          "component": { "Text": { "text": { "path": "stats/todayVisits" }, "usageHint": "h2" } }
+        }
+      ]
+    }
+  },
+  {
+    "dataModelUpdate": {
+      "surfaceId": "demo-surface",
+      "path": "/",
+      "contents": [
+        {
+          "key": "stats",
+          "valueMap": [
+            { "key": "totalUsers", "valueString": "12,548" },
+            { "key": "activeUsers", "valueString": "8,234" },
+            { "key": "todayVisits", "valueString": "1,890" }
+          ]
+        }
+      ]
+    }
+  }
+]

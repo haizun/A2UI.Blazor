@@ -1,0 +1,141 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root-column",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        {
+          "id": "root-column",
+          "component": {
+            "Card": { "child": "content" }
+          }
+        },
+        {
+          "id": "content",
+          "component": {
+            "Column": {
+              "children": { "explicitList": ["title", "list"] }
+            }
+          }
+        },
+        {
+          "id": "title",
+          "component": {
+            "Text": {
+              "text": { "literalString": "团队联系人" },
+              "usageHint": "h1"
+            }
+          }
+        },
+        {
+          "id": "list",
+          "component": {
+            "List": {
+              "direction": "vertical",
+              "children": {
+                "template": { "componentId": "card-template", "dataBinding": "/contacts" }
+              }
+            }
+          }
+        },
+        {
+          "id": "card-template",
+          "component": {
+            "Card": { "child": "card-row" }
+          }
+        },
+        {
+          "id": "card-row",
+          "component": {
+            "Row": { "children": { "explicitList": ["card-content", "view-btn"] } }
+          }
+        },
+        {
+          "id": "card-content",
+          "component": {
+            "Column": { "children": { "explicitList": ["name-text", "title-text"] } }
+          }
+        },
+        {
+          "id": "name-text",
+          "component": {
+            "Text": { "text": { "path": "name" }, "usageHint": "h3" }
+          }
+        },
+        {
+          "id": "title-text",
+          "component": {
+            "Text": { "text": { "path": "title" } }
+          }
+        },
+        {
+          "id": "view-btn",
+          "component": {
+            "Button": {
+              "child": "view-btn-text",
+              "primary": true,
+              "action": {
+                "name": "view_contact",
+                "context": [
+                  {
+                    "key": "contactName",
+                    "value": { "path": "name" }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "view-btn-text",
+          "component": {
+            "Text": { "text": { "literalString": "查看" } }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "dataModelUpdate": {
+      "surfaceId": "demo-surface",
+      "path": "/",
+      "contents": [
+        {
+          "key": "contacts",
+          "valueMap": [
+            {
+              "key": "contact1",
+              "valueMap": [
+                { "key": "name", "valueString": "张三" },
+                { "key": "title", "valueString": "高级工程师" },
+                { "key": "email", "valueString": "zhangsan@example.com" }
+              ]
+            },
+            {
+              "key": "contact2",
+              "valueMap": [
+                { "key": "name", "valueString": "李四" },
+                { "key": "title", "valueString": "产品经理" },
+                { "key": "email", "valueString": "lisi@example.com" }
+              ]
+            },
+            {
+              "key": "contact3",
+              "valueMap": [
+                { "key": "name", "valueString": "王五" },
+                { "key": "title", "valueString": "UI设计师" },
+                { "key": "email", "valueString": "wangwu@example.com" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

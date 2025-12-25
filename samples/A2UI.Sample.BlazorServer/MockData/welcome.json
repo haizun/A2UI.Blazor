@@ -1,0 +1,59 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root-card",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        {
+          "id": "root-card",
+          "component": {
+            "Card": { "child": "content-column" }
+          }
+        },
+        {
+          "id": "content-column",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["title", "description", "hint"]
+              }
+            }
+          }
+        },
+        {
+          "id": "title",
+          "component": {
+            "Text": {
+              "text": { "literalString": "欢迎使用 A2UI！" },
+              "usageHint": "h1"
+            }
+          }
+        },
+        {
+          "id": "description",
+          "component": {
+            "Text": {
+              "text": { "literalString": "这是一个由 AI Agent 生成的动态界面。" }
+            }
+          }
+        },
+        {
+          "id": "hint",
+          "component": {
+            "Text": {
+              "text": {
+                "literalString": "💡 试试输入: 显示联系人、显示餐厅、显示表单、显示产品、显示仪表盘、显示通知、显示用户资料"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+]

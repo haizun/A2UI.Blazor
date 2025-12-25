@@ -1,0 +1,29 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "content" } } },
+        {
+          "id": "content",
+          "component": { "Column": { "children": { "explicitList": ["title", "body"] } } }
+        },
+        {
+          "id": "title",
+          "component": { "Text": { "text": { "literalString": "简单卡片" }, "usageHint": "h2" } }
+        },
+        {
+          "id": "body",
+          "component": { "Text": { "text": { "literalString": "这是一个由 Agent 返回的简单卡片。" } } }
+        }
+      ]
+    }
+  }
+]

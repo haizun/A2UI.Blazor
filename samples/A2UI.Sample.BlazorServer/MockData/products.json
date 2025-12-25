@@ -1,0 +1,120 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        {
+          "id": "root",
+          "component": {
+            "Column": { "children": { "explicitList": ["header", "product-list"] } }
+          }
+        },
+        {
+          "id": "header",
+          "component": {
+            "Text": { "text": { "literalString": "🛍️ 热门商品" }, "usageHint": "h1" }
+          }
+        },
+        {
+          "id": "product-list",
+          "component": {
+            "List": {
+              "direction": "vertical",
+              "children": { "template": { "componentId": "product-card", "dataBinding": "/products" } }
+            }
+          }
+        },
+        {
+          "id": "product-card",
+          "component": { "Card": { "child": "product-layout" } }
+        },
+        {
+          "id": "product-layout",
+          "component": { "Row": { "children": { "explicitList": ["product-info", "buy-btn"] } } }
+        },
+        {
+          "id": "product-info",
+          "component": { "Column": { "children": { "explicitList": ["product-name", "product-price", "product-desc"] } } }
+        },
+        {
+          "id": "product-name",
+          "component": { "Text": { "text": { "path": "name" }, "usageHint": "h3" } }
+        },
+        {
+          "id": "product-price",
+          "component": { "Text": { "text": { "path": "price" } } }
+        },
+        {
+          "id": "product-desc",
+          "component": { "Text": { "text": { "path": "description" } } }
+        },
+        {
+          "id": "buy-btn",
+          "component": {
+            "Button": {
+              "child": "buy-text",
+              "primary": true,
+              "action": {
+                "name": "buy_product",
+                "context": [
+                  { "key": "productId", "value": { "path": "id" } }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "buy-text",
+          "component": { "Text": { "text": { "literalString": "购买" } } }
+        }
+      ]
+    }
+  },
+  {
+    "dataModelUpdate": {
+      "surfaceId": "demo-surface",
+      "path": "/",
+      "contents": [
+        {
+          "key": "products",
+          "valueMap": [
+            {
+              "key": "prod1",
+              "valueMap": [
+                { "key": "id", "valueString": "prod1" },
+                { "key": "name", "valueString": "无线蓝牙耳机" },
+                { "key": "price", "valueString": "¥299" },
+                { "key": "description", "valueString": "高品质音效,长续航" }
+              ]
+            },
+            {
+              "key": "prod2",
+              "valueMap": [
+                { "key": "id", "valueString": "prod2" },
+                { "key": "name", "valueString": "智能手环" },
+                { "key": "price", "valueString": "¥199" },
+                { "key": "description", "valueString": "健康监测,运动追踪" }
+              ]
+            },
+            {
+              "key": "prod3",
+              "valueMap": [
+                { "key": "id", "valueString": "prod3" },
+                { "key": "name", "valueString": "便携充电宝" },
+                { "key": "price", "valueString": "¥129" },
+                { "key": "description", "valueString": "20000mAh大容量" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

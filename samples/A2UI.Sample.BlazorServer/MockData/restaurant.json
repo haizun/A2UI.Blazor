@@ -1,0 +1,56 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "content" } } },
+        {
+          "id": "content",
+          "component": {
+            "Column": { "children": { "explicitList": ["title", "address", "button"] } }
+          }
+        },
+        {
+          "id": "title",
+          "component": { "Text": { "text": { "path": "name" }, "usageHint": "h2" } }
+        },
+        {
+          "id": "address",
+          "component": { "Text": { "text": { "path": "address" } } }
+        },
+        {
+          "id": "button",
+          "component": {
+            "Button": {
+              "child": "button-text",
+              "primary": true,
+              "action": { "name": "book_restaurant" }
+            }
+          }
+        },
+        {
+          "id": "button-text",
+          "component": { "Text": { "text": { "literalString": "立即预订" } } }
+        }
+      ]
+    }
+  },
+  {
+    "dataModelUpdate": {
+      "surfaceId": "demo-surface",
+      "path": "/",
+      "contents": [
+        { "key": "name", "valueString": "意大利餐厅" },
+        { "key": "address", "valueString": "北京市朝阳区建国路88号" },
+        { "key": "rating", "valueNumber": 4.5 }
+      ]
+    }
+  }
+]

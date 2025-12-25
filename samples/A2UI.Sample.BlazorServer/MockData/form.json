@@ -1,0 +1,92 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "form-content" } } },
+        {
+          "id": "form-content",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["form-title", "name-input", "email-input", "message-input", "submit-btn"]
+              }
+            }
+          }
+        },
+        {
+          "id": "form-title",
+          "component": {
+            "Text": { "text": { "literalString": "📝 联系表单" }, "usageHint": "h2" }
+          }
+        },
+        {
+          "id": "name-input",
+          "component": {
+            "TextField": {
+              "label": { "literalString": "姓名" },
+              "text": { "path": "formData/name" }
+            }
+          }
+        },
+        {
+          "id": "email-input",
+          "component": {
+            "TextField": {
+              "label": { "literalString": "邮箱" },
+              "text": { "path": "formData/email" },
+              "validationRegexp": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+            }
+          }
+        },
+        {
+          "id": "message-input",
+          "component": {
+            "TextField": {
+              "label": { "literalString": "留言" },
+              "text": { "path": "formData/message" },
+              "usageHint": "longText"
+            }
+          }
+        },
+        {
+          "id": "submit-btn",
+          "component": {
+            "Button": {
+              "child": "submit-text",
+              "primary": true,
+              "action": { "name": "submit_form" }
+            }
+          }
+        },
+        {
+          "id": "submit-text",
+          "component": { "Text": { "text": { "literalString": "提交" } } }
+        }
+      ]
+    }
+  },
+  {
+    "dataModelUpdate": {
+      "surfaceId": "demo-surface",
+      "path": "/",
+      "contents": [
+        {
+          "key": "formData",
+          "valueMap": [
+            { "key": "name", "valueString": "" },
+            { "key": "email", "valueString": "" },
+            { "key": "message", "valueString": "" }
+          ]
+        }
+      ]
+    }
+  }
+]

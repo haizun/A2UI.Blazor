@@ -1,0 +1,90 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        {
+          "id": "root",
+          "component": { "Column": { "children": { "explicitList": ["notif-title", "notif-list"] } } }
+        },
+        {
+          "id": "notif-title",
+          "component": { "Text": { "text": { "literalString": "🔔 通知中心" }, "usageHint": "h1" } }
+        },
+        {
+          "id": "notif-list",
+          "component": {
+            "List": {
+              "direction": "vertical",
+              "children": { "template": { "componentId": "notif-card", "dataBinding": "/notifications" } }
+            }
+          }
+        },
+        {
+          "id": "notif-card",
+          "component": { "Card": { "child": "notif-content" } }
+        },
+        {
+          "id": "notif-content",
+          "component": { "Column": { "children": { "explicitList": ["notif-header", "notif-message", "notif-time"] } } }
+        },
+        {
+          "id": "notif-header",
+          "component": { "Text": { "text": { "path": "title" }, "usageHint": "h3" } }
+        },
+        {
+          "id": "notif-message",
+          "component": { "Text": { "text": { "path": "message" } } }
+        },
+        {
+          "id": "notif-time",
+          "component": { "Text": { "text": { "path": "time" } } }
+        }
+      ]
+    }
+  },
+  {
+    "dataModelUpdate": {
+      "surfaceId": "demo-surface",
+      "path": "/",
+      "contents": [
+        {
+          "key": "notifications",
+          "valueMap": [
+            {
+              "key": "notif1",
+              "valueMap": [
+                { "key": "title", "valueString": "✅ 系统更新" },
+                { "key": "message", "valueString": "系统已成功更新到最新版本" },
+                { "key": "time", "valueString": "5分钟前" }
+              ]
+            },
+            {
+              "key": "notif2",
+              "valueMap": [
+                { "key": "title", "valueString": "📧 新消息" },
+                { "key": "message", "valueString": "您收到了来自管理员的新消息" },
+                { "key": "time", "valueString": "1小时前" }
+              ]
+            },
+            {
+              "key": "notif3",
+              "valueMap": [
+                { "key": "title", "valueString": "⚠️ 安全提醒" },
+                { "key": "message", "valueString": "检测到您的账号在新设备登录" },
+                { "key": "time", "valueString": "2小时前" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

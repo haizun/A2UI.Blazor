@@ -1,0 +1,118 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "profile-content" } } },
+        {
+          "id": "profile-content",
+          "component": {
+            "Column": {
+              "children": { "explicitList": ["profile-header", "profile-info", "profile-stats", "action-buttons"] }
+            }
+          }
+        },
+        {
+          "id": "profile-header",
+          "component": { "Text": { "text": { "literalString": "👤 用户资料" }, "usageHint": "h1" } }
+        },
+        {
+          "id": "profile-info",
+          "component": { "Column": { "children": { "explicitList": ["user-name", "user-email", "user-role", "user-bio"] } } }
+        },
+        {
+          "id": "user-name",
+          "component": { "Text": { "text": { "path": "user/name" }, "usageHint": "h2" } }
+        },
+        {
+          "id": "user-email",
+          "component": { "Text": { "text": { "path": "user/email" } } }
+        },
+        {
+          "id": "user-role",
+          "component": { "Text": { "text": { "path": "user/role" } } }
+        },
+        {
+          "id": "user-bio",
+          "component": { "Text": { "text": { "path": "user/bio" } } }
+        },
+        {
+          "id": "profile-stats",
+          "component": { "Row": { "children": { "explicitList": ["stat-followers", "stat-following"] } } }
+        },
+        {
+          "id": "stat-followers",
+          "component": { "Column": { "children": { "explicitList": ["followers-count", "followers-label"] } } }
+        },
+        {
+          "id": "followers-count",
+          "component": { "Text": { "text": { "path": "user/followers" }, "usageHint": "h3" } }
+        },
+        {
+          "id": "followers-label",
+          "component": { "Text": { "text": { "literalString": "关注者" } } }
+        },
+        {
+          "id": "stat-following",
+          "component": { "Column": { "children": { "explicitList": ["following-count", "following-label"] } } }
+        },
+        {
+          "id": "following-count",
+          "component": { "Text": { "text": { "path": "user/following" }, "usageHint": "h3" } }
+        },
+        {
+          "id": "following-label",
+          "component": { "Text": { "text": { "literalString": "正在关注" } } }
+        },
+        {
+          "id": "action-buttons",
+          "component": { "Row": { "children": { "explicitList": ["edit-btn", "settings-btn"] } } }
+        },
+        {
+          "id": "edit-btn",
+          "component": {
+            "Button": { "child": "edit-text", "primary": true, "action": { "name": "edit_profile" } }
+          }
+        },
+        {
+          "id": "edit-text",
+          "component": { "Text": { "text": { "literalString": "编辑资料" } } }
+        },
+        {
+          "id": "settings-btn",
+          "component": { "Button": { "child": "settings-text", "action": { "name": "open_settings" } } }
+        },
+        {
+          "id": "settings-text",
+          "component": { "Text": { "text": { "literalString": "设置" } } }
+        }
+      ]
+    }
+  },
+  {
+    "dataModelUpdate": {
+      "surfaceId": "demo-surface",
+      "path": "/",
+      "contents": [
+        {
+          "key": "user",
+          "valueMap": [
+            { "key": "name", "valueString": "许泽宇" },
+            { "key": "email", "valueString": "xuzeyu91@gmail.com" },
+            { "key": "role", "valueString": "架构师" },
+            { "key": "bio", "valueString": "热爱技术,专注于全栈开发和AI应用" },
+            { "key": "followers", "valueString": "1,234" },
+            { "key": "following", "valueString": "567" }
+          ]
+        }
+      ]
+    }
+  }
+]

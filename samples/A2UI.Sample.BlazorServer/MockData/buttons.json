@@ -1,0 +1,57 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "content" } } },
+        {
+          "id": "content",
+          "component": { "Column": { "children": { "explicitList": ["title", "desc", "button-row"] } } }
+        },
+        {
+          "id": "title",
+          "component": { "Text": { "text": { "literalString": "交互按钮演示" }, "usageHint": "h2" } }
+        },
+        {
+          "id": "desc",
+          "component": { "Text": { "text": { "literalString": "点击按钮与 Agent 交互：" } } }
+        },
+        {
+          "id": "button-row",
+          "component": { "Row": { "children": { "explicitList": ["btn1", "btn2"] } } }
+        },
+        {
+          "id": "btn1",
+          "component": {
+            "Button": {
+              "child": "btn1-text",
+              "primary": true,
+              "action": { "name": "like_action" }
+            }
+          }
+        },
+        {
+          "id": "btn1-text",
+          "component": { "Text": { "text": { "literalString": "👍 喜欢" } } }
+        },
+        {
+          "id": "btn2",
+          "component": {
+            "Button": { "child": "btn2-text", "action": { "name": "share_action" } }
+          }
+        },
+        {
+          "id": "btn2-text",
+          "component": { "Text": { "text": { "literalString": "🔗 分享" } } }
+        }
+      ]
+    }
+  }
+]
