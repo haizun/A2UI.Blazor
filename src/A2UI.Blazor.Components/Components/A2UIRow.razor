@@ -5,7 +5,7 @@
     {
         @foreach (var childId in ChildrenIds)
         {
-            <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@childId" />
+            <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@childId" DataContextPath="@Component.DataContextPath" />
         }
     }
 </div>

@@ -8,8 +8,8 @@
     {
         @foreach (var childId in ChildrenIds)
         {
-            Console.WriteLine($"[A2UIColumn] Rendering child: {childId}");
-            <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@childId" />
+            Console.WriteLine($"[A2UIColumn] Rendering child: {childId}, DataContextPath={Component.DataContextPath}");
+            <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@childId" DataContextPath="@Component.DataContextPath" />
         }
     }
     else

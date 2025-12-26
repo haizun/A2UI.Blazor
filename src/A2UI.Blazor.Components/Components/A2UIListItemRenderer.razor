@@ -29,6 +29,8 @@ else
     {
         base.OnParametersSet();
 
+        Console.WriteLine($"[A2UIListItemRenderer] OnParametersSet: SurfaceId={SurfaceId}, TemplateId={TemplateId}, DataContextPath={DataContextPath}");
+
         var surface = MessageProcessor.GetSurface(SurfaceId);
         if (surface != null && surface.Components.TryGetValue(TemplateId, out var node))
         {
@@ -42,11 +44,15 @@ else
                 DataContextPath = DataContextPath  // 设置数据上下文路径
             };
 
-            Console.WriteLine($"[A2UIListItemRenderer] Rendering template: {TemplateId}, DataContext: {DataContextPath}");
+            Console.WriteLine($"[A2UIListItemRenderer] Created template component: Type={node.Type}, DataContextPath={DataContextPath}");
         }
         else
         {
             Console.WriteLine($"[A2UIListItemRenderer] Template component NOT found: {TemplateId}");
+            if (surface != null)
+            {
+                Console.WriteLine($"[A2UIListItemRenderer] Available components: {string.Join(", ", surface.Components.Keys)}");
+            }
         }
     }
 

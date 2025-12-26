@@ -2,11 +2,11 @@
 
 <div class="@GetCssClass()" style="@GetInlineStyle()">
     @{
-        Console.WriteLine($"[A2UICard] Rendering card, ChildComponentId={ChildComponentId}");
+        Console.WriteLine($"[A2UICard] Rendering card, ChildComponentId={ChildComponentId}, DataContextPath={Component.DataContextPath}");
     }
     @if (!string.IsNullOrEmpty(ChildComponentId))
     {
-        <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@ChildComponentId" />
+        <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@ChildComponentId" DataContextPath="@Component.DataContextPath" />
     }
     else
     {
@@ -21,7 +21,7 @@
     {
         base.OnParametersSet();
         ChildComponentId = GetStringProperty("child");
-        Console.WriteLine($"[A2UICard] OnParametersSet: ComponentId={Component.Id}, ChildComponentId={ChildComponentId}");
+        Console.WriteLine($"[A2UICard] OnParametersSet: ComponentId={Component.Id}, ChildComponentId={ChildComponentId}, DataContextPath={Component.DataContextPath}");
     }
 
     protected override string GetCssClass()

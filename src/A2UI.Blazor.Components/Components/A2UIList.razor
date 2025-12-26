@@ -19,7 +19,7 @@
         @* 使用显式子组件列表 *@
         @foreach (var childId in ChildrenIds)
         {
-            <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@childId" />
+            <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@childId" DataContextPath="@Component.DataContextPath" />
         }
     }
     else

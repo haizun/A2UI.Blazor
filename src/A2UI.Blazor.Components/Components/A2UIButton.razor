@@ -7,7 +7,7 @@
 <button class="@GetCssClass()" style="@GetInlineStyle()" @onclick="HandleClick">
     @if (!string.IsNullOrEmpty(ChildComponentId))
     {
-        <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@ChildComponentId" />
+        <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@ChildComponentId" DataContextPath="@Component.DataContextPath" />
     }
 </button>
 
