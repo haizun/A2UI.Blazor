@@ -62,7 +62,23 @@
             "Button": {
               "child": "submit-text",
               "primary": true,
-              "action": { "name": "submit_form" }
+              "action": {
+                "name": "submit_form",
+                "context": [
+                  {
+                    "key": "name",
+                    "value": { "path": "formData/name" }
+                  },
+                  {
+                    "key": "email",
+                    "value": { "path": "formData/email" }
+                  },
+                  {
+                    "key": "message",
+                    "value": { "path": "formData/message" }
+                  }
+                ]
+              }
             }
           }
         },

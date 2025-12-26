@@ -13,7 +13,7 @@
     {
         <textarea @bind="CurrentText" 
                   @bind:event="oninput"
-                  @onchange="HandleChange"
+                  @bind:after="HandleChange"
                   rows="4"
                   style="width: 100%; padding: 8px; border: 1px solid #d9d9d9; border-radius: 4px;"
                   pattern="@ValidationRegexp"></textarea>
@@ -23,7 +23,7 @@
         <input type="@GetInputType()" 
                @bind="CurrentText" 
                @bind:event="oninput"
-               @onchange="HandleChange"
+               @bind:after="HandleChange"
                style="width: 100%; padding: 8px; border: 1px solid #d9d9d9; border-radius: 4px;"
                pattern="@ValidationRegexp" />
     }

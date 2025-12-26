@@ -32,6 +32,16 @@ public class MessageProcessor
     public IReadOnlyDictionary<string, Surface> Surfaces => _surfaces;
 
     /// <summary>
+    /// Triggers a SurfaceUpdated event for the given surface.
+    /// Use this when the data model is mutated directly (e.g., via SetData)
+    /// and you want bound components to refresh without applying a DataModelUpdate message.
+    /// </summary>
+    public void NotifySurfaceUpdated(string surfaceId)
+    {
+        OnSurfaceUpdated(surfaceId);
+    }
+
+    /// <summary>
     /// Processes a batch of messages.
     /// </summary>
     public void ProcessMessages(IEnumerable<ServerToClientMessage> messages)

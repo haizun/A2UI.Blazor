@@ -15,7 +15,7 @@
                max="@Max" 
                @bind="CurrentValue" 
                @bind:event="oninput"
-               @onchange="HandleChange"
+             @bind:after="HandleChange"
                style="flex: 1;" />
         <span style="min-width: 40px; text-align: right;">@CurrentValue</span>
     </div>

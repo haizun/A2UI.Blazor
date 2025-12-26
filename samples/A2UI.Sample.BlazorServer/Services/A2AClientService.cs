@@ -35,35 +35,12 @@ public class A2AClientService
         
         // Apply the data update to the surface's data model
         _messageProcessor.SetData(e.Update.SurfaceId, e.Update.Path, e.Update.Value);
-        
-        // Create DataEntry based on value type
-        var dataEntry = new DataEntry
-        {
-            Key = e.Update.Path
-        };
 
-        if (e.Update.Value is bool boolValue)
-        {
-            dataEntry.ValueBoolean = boolValue;
-        }
-        else if (e.Update.Value is double or float or int or long)
-        {
-            dataEntry.ValueNumber = Convert.ToDouble(e.Update.Value);
-        }
-        else
-        {
-            dataEntry.ValueString = e.Update.Value?.ToString();
-        }
-        
-        // Trigger surface update event so components can refresh
-        _messageProcessor.ProcessMessage(new ServerToClientMessage
-        {
-            DataModelUpdate = new DataModelUpdateMessage
-            {
-                SurfaceId = e.Update.SurfaceId,
-                Contents = new List<DataEntry> { dataEntry }
-            }
-        });
+        // Trigger surface update event so components can refresh.
+        // IMPORTANT: Do not synthesize a DataModelUpdate here. The DataModelUpdate format is
+        // an adjacency list for a subtree, and using e.Update.Path as a key will corrupt the
+        // nested model (e.g., creating a top-level key "formData/message").
+        _messageProcessor.NotifySurfaceUpdated(e.Update.SurfaceId);
     }
 
     /// <summary>
