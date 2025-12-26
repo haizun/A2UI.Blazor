@@ -1,0 +1,137 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "modal-content" } } },
+        {
+          "id": "modal-content",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["modal-title", "modal-desc", "open-modal-btn", "modal-demo"]
+              }
+            }
+          }
+        },
+        {
+          "id": "modal-title",
+          "component": {
+            "Text": { "text": { "literalString": "💬 模态框演示" }, "usageHint": "h1" }
+          }
+        },
+        {
+          "id": "modal-desc",
+          "component": {
+            "Text": { "text": { "literalString": "点击按钮打开模态框，展示详细信息" } }
+          }
+        },
+        {
+          "id": "open-modal-btn",
+          "component": {
+            "Button": {
+              "child": "open-btn-text",
+              "primary": true,
+              "action": { "name": "open_modal" }
+            }
+          }
+        },
+        {
+          "id": "open-btn-text",
+          "component": { "Text": { "text": { "literalString": "打开模态框" } } }
+        },
+        {
+          "id": "modal-demo",
+          "component": {
+            "Modal": {
+              "isOpen": { "path": "ui/modalOpen" },
+              "title": { "literalString": "重要通知" },
+              "content": "modal-body",
+              "closeAction": { "name": "close_modal" }
+            }
+          }
+        },
+        {
+          "id": "modal-body",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["modal-message", "modal-details", "modal-divider", "modal-actions"]
+              }
+            }
+          }
+        },
+        {
+          "id": "modal-message",
+          "component": {
+            "Text": { "text": { "literalString": "这是一个模态框示例" }, "usageHint": "h3" }
+          }
+        },
+        {
+          "id": "modal-details",
+          "component": {
+            "Text": { "text": { "literalString": "模态框可以用来显示重要信息、确认对话框、表单等内容。它会覆盖在页面内容之上，让用户专注于当前操作。" } }
+          }
+        },
+        {
+          "id": "modal-divider",
+          "component": { "Divider": {} }
+        },
+        {
+          "id": "modal-actions",
+          "component": {
+            "Row": {
+              "children": {
+                "explicitList": ["confirm-btn", "cancel-btn"]
+              }
+            }
+          }
+        },
+        {
+          "id": "confirm-btn",
+          "component": {
+            "Button": {
+              "child": "confirm-text",
+              "primary": true,
+              "action": { "name": "confirm_action" }
+            }
+          }
+        },
+        {
+          "id": "confirm-text",
+          "component": { "Text": { "text": { "literalString": "确认" } } }
+        },
+        {
+          "id": "cancel-btn",
+          "component": {
+            "Button": {
+              "child": "cancel-text",
+              "action": { "name": "cancel_action" }
+            }
+          }
+        },
+        {
+          "id": "cancel-text",
+          "component": { "Text": { "text": { "literalString": "取消" } } }
+        }
+      ],
+      "data": {
+        "ui": {
+          "modalOpen": true
+        }
+      }
+    }
+  },
+  {
+    "endRendering": {
+      "surfaceId": "demo-surface"
+    }
+  }
+]

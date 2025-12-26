@@ -1,0 +1,228 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "icons-content" } } },
+        {
+          "id": "icons-content",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["icons-title", "icons-desc", "divider1", "icons-row1", "divider2", "icons-row2", "divider3", "icon-sizes"]
+              }
+            }
+          }
+        },
+        {
+          "id": "icons-title",
+          "component": {
+            "Text": { "text": { "literalString": "🎨 图标组件展示" }, "usageHint": "h1" }
+          }
+        },
+        {
+          "id": "icons-desc",
+          "component": {
+            "Text": { "text": { "literalString": "展示各种图标和尺寸" } }
+          }
+        },
+        {
+          "id": "divider1",
+          "component": { "Divider": {} }
+        },
+        {
+          "id": "icons-row1",
+          "component": {
+            "Row": {
+              "children": {
+                "explicitList": ["icon-home", "icon-user", "icon-settings", "icon-heart", "icon-star"]
+              }
+            }
+          }
+        },
+        {
+          "id": "icon-home",
+          "component": {
+            "Icon": {
+              "name": "home",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "icon-user",
+          "component": {
+            "Icon": {
+              "name": "user",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "icon-settings",
+          "component": {
+            "Icon": {
+              "name": "settings",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "icon-heart",
+          "component": {
+            "Icon": {
+              "name": "heart",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "icon-star",
+          "component": {
+            "Icon": {
+              "name": "star",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "divider2",
+          "component": { "Divider": {} }
+        },
+        {
+          "id": "icons-row2",
+          "component": {
+            "Row": {
+              "children": {
+                "explicitList": ["icon-mail", "icon-bell", "icon-search", "icon-calendar", "icon-chart"]
+              }
+            }
+          }
+        },
+        {
+          "id": "icon-mail",
+          "component": {
+            "Icon": {
+              "name": "mail",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "icon-bell",
+          "component": {
+            "Icon": {
+              "name": "bell",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "icon-search",
+          "component": {
+            "Icon": {
+              "name": "search",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "icon-calendar",
+          "component": {
+            "Icon": {
+              "name": "calendar",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "icon-chart",
+          "component": {
+            "Icon": {
+              "name": "chart",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "divider3",
+          "component": { "Divider": {} }
+        },
+        {
+          "id": "icon-sizes",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["sizes-title", "sizes-row"]
+              }
+            }
+          }
+        },
+        {
+          "id": "sizes-title",
+          "component": {
+            "Text": { "text": { "literalString": "不同尺寸" }, "usageHint": "h3" }
+          }
+        },
+        {
+          "id": "sizes-row",
+          "component": {
+            "Row": {
+              "children": {
+                "explicitList": ["icon-small", "icon-medium", "icon-large", "icon-xlarge"]
+              }
+            }
+          }
+        },
+        {
+          "id": "icon-small",
+          "component": {
+            "Icon": {
+              "name": "star",
+              "size": 16
+            }
+          }
+        },
+        {
+          "id": "icon-medium",
+          "component": {
+            "Icon": {
+              "name": "star",
+              "size": 32
+            }
+          }
+        },
+        {
+          "id": "icon-large",
+          "component": {
+            "Icon": {
+              "name": "star",
+              "size": 48
+            }
+          }
+        },
+        {
+          "id": "icon-xlarge",
+          "component": {
+            "Icon": {
+              "name": "star",
+              "size": 64
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "endRendering": {
+      "surfaceId": "demo-surface"
+    }
+  }
+]

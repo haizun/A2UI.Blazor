@@ -1,0 +1,169 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "inputs-content" } } },
+        {
+          "id": "inputs-content",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["inputs-title", "datetime-section", "slider-section", "choice-section", "submit-btn"]
+              }
+            }
+          }
+        },
+        {
+          "id": "inputs-title",
+          "component": {
+            "Text": { "text": { "literalString": "⚙️ 高级输入组件" }, "usageHint": "h1" }
+          }
+        },
+        {
+          "id": "datetime-section",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["datetime-title", "datetime-input"]
+              }
+            }
+          }
+        },
+        {
+          "id": "datetime-title",
+          "component": {
+            "Text": { "text": { "literalString": "📅 日期时间选择" }, "usageHint": "h3" }
+          }
+        },
+        {
+          "id": "datetime-input",
+          "component": {
+            "DateTimeInput": {
+              "label": { "literalString": "选择日期和时间" },
+              "value": { "path": "formData/selectedDateTime" }
+            }
+          }
+        },
+        {
+          "id": "slider-section",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["slider-title", "slider-desc", "slider-input"]
+              }
+            }
+          }
+        },
+        {
+          "id": "slider-title",
+          "component": {
+            "Text": { "text": { "literalString": "🎚️ 滑块控制" }, "usageHint": "h3" }
+          }
+        },
+        {
+          "id": "slider-desc",
+          "component": {
+            "Text": { "text": { "literalString": "调整数值大小 (0-100)" } }
+          }
+        },
+        {
+          "id": "slider-input",
+          "component": {
+            "Slider": {
+              "label": { "literalString": "音量" },
+              "value": { "path": "formData/volume" },
+              "min": 0,
+              "max": 100,
+              "step": 5
+            }
+          }
+        },
+        {
+          "id": "choice-section",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["choice-title", "choice-input"]
+              }
+            }
+          }
+        },
+        {
+          "id": "choice-title",
+          "component": {
+            "Text": { "text": { "literalString": "✅ 多选题" }, "usageHint": "h3" }
+          }
+        },
+        {
+          "id": "choice-input",
+          "component": {
+            "MultipleChoice": {
+              "question": { "literalString": "你喜欢哪些编程语言？" },
+              "options": {
+                "explicitList": [
+                  {
+                    "id": "opt1",
+                    "label": { "literalString": "C#" },
+                    "selected": { "path": "formData/lang_csharp" }
+                  },
+                  {
+                    "id": "opt2",
+                    "label": { "literalString": "JavaScript" },
+                    "selected": { "path": "formData/lang_js" }
+                  },
+                  {
+                    "id": "opt3",
+                    "label": { "literalString": "Python" },
+                    "selected": { "path": "formData/lang_python" }
+                  },
+                  {
+                    "id": "opt4",
+                    "label": { "literalString": "TypeScript" },
+                    "selected": { "path": "formData/lang_ts" }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "submit-btn",
+          "component": {
+            "Button": {
+              "child": "submit-text",
+              "primary": true,
+              "action": { "name": "submit_advanced_form" }
+            }
+          }
+        },
+        {
+          "id": "submit-text",
+          "component": { "Text": { "text": { "literalString": "提交表单" } } }
+        }
+      ],
+      "data": {
+        "formData": {
+          "selectedDateTime": "2025-12-26T12:00:00",
+          "volume": 50,
+          "lang_csharp": true,
+          "lang_js": false,
+          "lang_python": true,
+          "lang_ts": false
+        }
+      }
+    }
+  },
+  {
+    "endRendering": {
+      "surfaceId": "demo-surface"
+    }
+  }
+]

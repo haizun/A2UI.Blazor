@@ -1,0 +1,141 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "media-content" } } },
+        {
+          "id": "media-content",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["media-title", "divider1", "image-section", "divider2", "audio-section", "divider3", "video-section"]
+              }
+            }
+          }
+        },
+        {
+          "id": "media-title",
+          "component": {
+            "Text": { "text": { "literalString": "🎨 媒体组件展示" }, "usageHint": "h1" }
+          }
+        },
+        {
+          "id": "divider1",
+          "component": { "Divider": {} }
+        },
+        {
+          "id": "image-section",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["image-title", "image-desc", "image-demo"]
+              }
+            }
+          }
+        },
+        {
+          "id": "image-title",
+          "component": {
+            "Text": { "text": { "literalString": "📷 图片展示" }, "usageHint": "h2" }
+          }
+        },
+        {
+          "id": "image-desc",
+          "component": {
+            "Text": { "text": { "literalString": "展示图片组件，支持自定义宽高和替代文本" } }
+          }
+        },
+        {
+          "id": "image-demo",
+          "component": {
+            "Image": {
+              "url": { "literalString": "https://picsum.photos/400/300" },
+              "altText": { "literalString": "示例图片" }
+            }
+          }
+        },
+        {
+          "id": "divider2",
+          "component": { "Divider": {} }
+        },
+        {
+          "id": "audio-section",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["audio-title", "audio-desc", "audio-demo"]
+              }
+            }
+          }
+        },
+        {
+          "id": "audio-title",
+          "component": {
+            "Text": { "text": { "literalString": "🎵 音频播放器" }, "usageHint": "h2" }
+          }
+        },
+        {
+          "id": "audio-desc",
+          "component": {
+            "Text": { "text": { "literalString": "在线播放音频文件，支持播放控制" } }
+          }
+        },
+        {
+          "id": "audio-demo",
+          "component": {
+            "AudioPlayer": {
+              "url": { "literalString": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" }
+            }
+          }
+        },
+        {
+          "id": "divider3",
+          "component": { "Divider": {} }
+        },
+        {
+          "id": "video-section",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["video-title", "video-desc", "video-demo"]
+              }
+            }
+          }
+        },
+        {
+          "id": "video-title",
+          "component": {
+            "Text": { "text": { "literalString": "🎬 视频播放器" }, "usageHint": "h2" }
+          }
+        },
+        {
+          "id": "video-desc",
+          "component": {
+            "Text": { "text": { "literalString": "在线播放视频文件，支持全屏和播放控制" } }
+          }
+        },
+        {
+          "id": "video-demo",
+          "component": {
+            "Video": {
+              "url": { "literalString": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "endRendering": {
+      "surfaceId": "demo-surface"
+    }
+  }
+]

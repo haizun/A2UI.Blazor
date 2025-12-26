@@ -1,0 +1,197 @@
+[
+  {
+    "beginRendering": {
+      "surfaceId": "demo-surface",
+      "root": "root",
+      "catalogId": "org.a2ui.standard@0.8"
+    }
+  },
+  {
+    "surfaceUpdate": {
+      "surfaceId": "demo-surface",
+      "components": [
+        { "id": "root", "component": { "Card": { "child": "tabs-content" } } },
+        {
+          "id": "tabs-content",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["tabs-title", "tabs-demo"]
+              }
+            }
+          }
+        },
+        {
+          "id": "tabs-title",
+          "component": {
+            "Text": { "text": { "literalString": "📑 标签页组件" }, "usageHint": "h1" }
+          }
+        },
+        {
+          "id": "tabs-demo",
+          "component": {
+            "Tabs": {
+              "tabs": {
+                "explicitList": [
+                  {
+                    "id": "tab1",
+                    "label": { "literalString": "🏠 首页" },
+                    "content": "tab1-content"
+                  },
+                  {
+                    "id": "tab2",
+                    "label": { "literalString": "📊 数据" },
+                    "content": "tab2-content"
+                  },
+                  {
+                    "id": "tab3",
+                    "label": { "literalString": "⚙️ 设置" },
+                    "content": "tab3-content"
+                  }
+                ]
+              },
+              "activeTabId": { "path": "ui/activeTab" }
+            }
+          }
+        },
+        {
+          "id": "tab1-content",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["tab1-title", "tab1-text", "tab1-icon"]
+              }
+            }
+          }
+        },
+        {
+          "id": "tab1-title",
+          "component": {
+            "Text": { "text": { "literalString": "欢迎使用" }, "usageHint": "h2" }
+          }
+        },
+        {
+          "id": "tab1-text",
+          "component": {
+            "Text": { "text": { "literalString": "这是首页标签的内容。您可以在这里查看系统概览。" } }
+          }
+        },
+        {
+          "id": "tab1-icon",
+          "component": {
+            "Icon": {
+              "name": "home",
+              "size": 48
+            }
+          }
+        },
+        {
+          "id": "tab2-content",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["tab2-title", "tab2-stats"]
+              }
+            }
+          }
+        },
+        {
+          "id": "tab2-title",
+          "component": {
+            "Text": { "text": { "literalString": "数据统计" }, "usageHint": "h2" }
+          }
+        },
+        {
+          "id": "tab2-stats",
+          "component": {
+            "Row": {
+              "children": {
+                "explicitList": ["stat1", "stat2", "stat3"]
+              }
+            }
+          }
+        },
+        {
+          "id": "stat1",
+          "component": {
+            "Text": { "text": { "literalString": "用户: 1,234" }, "usageHint": "h3" }
+          }
+        },
+        {
+          "id": "stat2",
+          "component": {
+            "Text": { "text": { "literalString": "订单: 567" }, "usageHint": "h3" }
+          }
+        },
+        {
+          "id": "stat3",
+          "component": {
+            "Text": { "text": { "literalString": "收入: ¥89,012" }, "usageHint": "h3" }
+          }
+        },
+        {
+          "id": "tab3-content",
+          "component": {
+            "Column": {
+              "children": {
+                "explicitList": ["tab3-title", "tab3-option1", "tab3-option2", "tab3-btn"]
+              }
+            }
+          }
+        },
+        {
+          "id": "tab3-title",
+          "component": {
+            "Text": { "text": { "literalString": "系统设置" }, "usageHint": "h2" }
+          }
+        },
+        {
+          "id": "tab3-option1",
+          "component": {
+            "CheckBox": {
+              "label": { "literalString": "启用通知" },
+              "checked": { "path": "settings/notifications" }
+            }
+          }
+        },
+        {
+          "id": "tab3-option2",
+          "component": {
+            "CheckBox": {
+              "label": { "literalString": "深色模式" },
+              "checked": { "path": "settings/darkMode" }
+            }
+          }
+        },
+        {
+          "id": "tab3-btn",
+          "component": {
+            "Button": {
+              "child": "tab3-btn-text",
+              "primary": true,
+              "action": { "name": "save_settings" }
+            }
+          }
+        },
+        {
+          "id": "tab3-btn-text",
+          "component": { "Text": { "text": { "literalString": "保存设置" } } }
+        }
+      ],
+      "data": {
+        "ui": {
+          "activeTab": "tab1"
+        },
+        "settings": {
+          "notifications": true,
+          "darkMode": false
+        }
+      }
+    }
+  },
+  {
+    "endRendering": {
+      "surfaceId": "demo-surface"
+    }
+  }
+]
