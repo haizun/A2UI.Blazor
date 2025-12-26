@@ -1,8 +1,176 @@
 @inherits A2UIComponentBase
-@* Placeholder *@
-<div class="@GetCssClass()">Tabs Component</div>
+@using A2UI.Core.Processing
+@using A2UI.Core.Messages
+@inject DataBindingResolver BindingResolver
+@inject EventDispatcher EventDispatcher
+
+<div class="@GetCssClass()" style="@GetInlineStyle()">
+    <!-- Tab Headers -->
+    <div class="tabs-header" style="display: flex; border-bottom: 2px solid #e0e0e0; margin-bottom: 16px;">
+        @if (Tabs != null)
+        {
+            @foreach (var tab in Tabs)
+            {
+                <button class="tab-button @(tab.Id == ActiveTabId ? "active" : "")"
+                        @onclick="() => SelectTab(tab.Id)"
+                        style="@GetTabButtonStyle(tab.Id == ActiveTabId)">
+                    @tab.Label
+                </button>
+            }
+        }
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tabs-content">
+        @if (!string.IsNullOrEmpty(ActiveContentId))
+        {
+            <A2UIRenderer SurfaceId="@SurfaceId" ComponentId="@ActiveContentId" />
+        }
+    </div>
+</div>
 
 @code {
-    protected override string GetCssClass() => Theme.Components.Tabs;
+    private List<TabInfo> Tabs = new();
+    private string? ActiveTabId;
+    private string? ActiveContentId;
+    private string? ActiveTabDataPath;
+
+    private class TabInfo
+    {
+        public string Id { get; set; } = "";
+        public string Label { get; set; } = "";
+        public string ContentId { get; set; } = "";
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        // Parse tabs
+        if (Component.Properties.TryGetValue("tabs", out var tabsValue))
+        {
+            Tabs = ParseTabs(tabsValue);
+        }
+
+        // Get active tab ID from data binding
+        var activeTabData = GetDictionaryProperty("activeTabId");
+        if (activeTabData != null)
+        {
+            if (activeTabData.TryGetValue("path", out var pathObj))
+            {
+                ActiveTabDataPath = pathObj?.ToString();
+            }
+
+            var resolvedValue = BindingResolver.ResolveValue(activeTabData, SurfaceId, Component.DataContextPath);
+            ActiveTabId = resolvedValue?.ToString();
+        }
+
+        // Default to first tab if no active tab
+        if (string.IsNullOrEmpty(ActiveTabId) && Tabs.Count > 0)
+        {
+            ActiveTabId = Tabs[0].Id;
+        }
+
+        // Get content ID for active tab
+        var activeTab = Tabs.FirstOrDefault(t => t.Id == ActiveTabId);
+        if (activeTab != null)
+        {
+            ActiveContentId = activeTab.ContentId;
+        }
+    }
+
+    private List<TabInfo> ParseTabs(object tabsValue)
+    {
+        var result = new List<TabInfo>();
+
+        try
+        {
+            if (tabsValue is Dictionary<string, object> tabsDict &&
+                tabsDict.TryGetValue("explicitList", out var listObj) &&
+                listObj is List<object> objectList)
+            {
+                foreach (var item in objectList)
+                {
+                    if (item is Dictionary<string, object> dict)
+                    {
+                        var tab = new TabInfo();
+
+                        if (dict.TryGetValue("id", out var idObj))
+                        {
+                            tab.Id = idObj?.ToString() ?? "";
+                        }
+
+                        if (dict.TryGetValue("label", out var labelObj))
+                        {
+                            var labelData = labelObj as Dictionary<string, object>;
+                            tab.Label = labelData != null ?
+                                BindingResolver.ResolveString(labelData, SurfaceId, Component.DataContextPath) ?? "" :
+                                labelObj?.ToString() ?? "";
+                        }
+
+                        if (dict.TryGetValue("content", out var contentObj))
+                        {
+                            tab.ContentId = contentObj?.ToString() ?? "";
+                        }
+
+                        result.Add(tab);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[A2UITabs] Error parsing tabs: {ex.Message}");
+        }
+
+        return result;
+    }
+
+    private void SelectTab(string tabId)
+    {
+        ActiveTabId = tabId;
+
+        var tab = Tabs.FirstOrDefault(t => t.Id == tabId);
+        if (tab != null)
+        {
+            ActiveContentId = tab.ContentId;
+        }
+
+        // Update data binding
+        if (!string.IsNullOrEmpty(ActiveTabDataPath))
+        {
+            var dataUpdate = EventDispatcher.CreateDataUpdate(
+                SurfaceId,
+                Component.Id,
+                ActiveTabDataPath,
+                tabId
+            );
+            EventDispatcher.DispatchDataUpdate(dataUpdate);
+        }
+
+        StateHasChanged();
+    }
+
+    private string GetTabButtonStyle(bool isActive)
+    {
+        var baseStyle = "padding: 12px 24px; border: none; background: none; cursor: pointer; " +
+                       "font-size: 14px; font-weight: 500; transition: all 0.2s; " +
+                       "border-bottom: 2px solid transparent; margin-bottom: -2px;";
+
+        if (isActive)
+        {
+            return baseStyle + " color: #8b6cd9; border-bottom-color: #8b6cd9;";
+        }
+        else
+        {
+            return baseStyle + " color: #666;";
+        }
+    }
+
+    protected override string GetCssClass()
+    {
+        return Theme.Components.Tabs;
+    }
 }
+
 
