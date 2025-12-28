@@ -258,3 +258,4 @@ FodyWeavers.xsd
 
 A2UI/*
 samples/A2UI.Sample.BlazorServer/Properties/PublishProfiles/FolderProfile.pubxml
+/doc/blog
